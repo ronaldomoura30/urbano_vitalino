@@ -1,0 +1,67 @@
+{% extends 'processo/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %} Cadastrar Processo {% endblock title %}
+
+{% block container %}
+<div id="alert">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<h2> Cadastrar Processo </h2>
+
+<br/>
+
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <fieldset>
+        <div class="form-group{% if field.errors %} has-error{% endif %}">
+            <label for="nome" class="col-sm-2 control-label">{{ form.nome.label }}</label>
+            <div class="col-md-6">
+                {% render_field form.nome id="nome" class="form-control" %}
+                {% for error in form.nome.errors %}
+                <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group{% if field.errors %} has-error{% endif %}">
+            <label for="cliente" class="col-sm-2 control-label">{{ form.cliente.label }}</label>
+            <div class="col-md-6">
+                {% render_field form.cliente id="cliente" class="form-control" %}
+                {% for error in form.cliente.errors %}
+                <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+         <div class="form-group{% if field.errors %} has-error{% endif %}">
+            <label class="col-sm-2 control-label">Arquivo</label>
+            <div class="col-md-6">
+                {% render_field form.arquivo class="form-control" %}
+                {% for error in form.arquivo.errors %}
+                <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <hidden class="col-sm-4 control-label"></hidden>
+        <a id="botao_voltar" href="{% url 'processo:index' %}" type="submit" style="margin-left:5.8%;"
+           class="btn btn-secundary">
+            Voltar
+        </a>
+        <button id="botao_converter" type="submit" style="margin-left:5.8%;" class="btn btn-success">
+            Inserir Arquivo
+        </button>
+    </fieldset>
+</form>
+{% endblock %}

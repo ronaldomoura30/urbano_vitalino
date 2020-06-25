@@ -1,0 +1,44 @@
+{% extends "processo/base.html" %}
+{% load pagination %}
+
+{% block title %} Listagem de Processos | {{block.super}} {% endblock%}
+
+{% block container%}
+<div class="page-header">
+    <h2>Processos</h2>
+</div>
+<div class="row">
+   <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            Pasta
+        </th>
+        <th>
+            Comarca
+        </th>
+        <th>
+            UF
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for processo in object_list %}
+        <tr>
+            <td>
+                {{ processo.pasta }}
+            </td>
+            <td>
+                {{ processo.comarca }}
+            </td>
+            <td>
+                {{ processo.uf }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% pagination request paginator page_obj %}
+{% endblock %}
